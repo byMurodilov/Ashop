@@ -1,0 +1,13 @@
+----------- Version 1.0 [May 24, 2021]  -----------
+* Release
+
+Initial release
+
+
+Date:  05-06-2021
+
+Version: 1.0.1
+
+===================
+
+01. Update - minor css issue fixed

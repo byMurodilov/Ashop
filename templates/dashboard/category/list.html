@@ -1,0 +1,89 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="main-content">
+    <div class="page-header">
+        <h2 class="header-title">SHOP</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Dashboard</a>
+                <a class="breadcrumb-item" href="#">Category</a>
+                <span class="breadcrumb-item active">List</span>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        {% if request.method == "GET" %}
+            <div class="card-body">
+                <h4>Categorylar ro'yxati</h4>
+                <div class="m-t-25">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nomi</th>
+                                    <th scope="col">Harakatlar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for q in queryset %}
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ q.name }}</td>
+                                        <td>
+                                            <td>
+                                                <form action="{% url 'dashboard:category_update' id=q.id %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-primary" style="font-size:24px; margin-right: 15px;">UPDATE</button>
+                                                </form>
+                                                <form action="{% url 'dashboard:category_delete' id=q.id %}" method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger" style="font-size:24px;">DELETE</button>
+                                                </form>
+                                            </td>
+                                            
+                                        </td>                                        
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% elif request.method == "POST" %}
+        <div class="main-content">
+            <div class="page-header">
+                <h2 class="header-title">SHOP</h2>
+                <div class="header-sub-title">
+                    <nav class="breadcrumb breadcrumb-dash">
+                        <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Dashboard</a>
+                        <a class="breadcrumb-item" href="#">Category</a>
+                        <span class="breadcrumb-item active">O'zgartirish</span>
+                    </nav>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4>Category o'zgartirish</h4>
+                    <div class="m-t-25" style="max-width: 700px">
+                        <form action="{% url 'dashboard:category_update' id=queryset.id %}" method="post">
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-2 col-form-label">Nom</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputPassword3" value="{{ queryset.name }}" name="name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Saqlash</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

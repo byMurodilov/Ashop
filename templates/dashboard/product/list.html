@@ -1,0 +1,55 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="main-content">
+    <div class="page-header">
+        <h2 class="header-title">SHOP</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Dashboard</a>
+                <a class="breadcrumb-item" href="#">Product</a>
+                <span class="breadcrumb-item active">Ro'yxat</span>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4>Productlar ro`yxati</h4>
+            <div class="m-t-25">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Nomi</th>
+                                <th scope="col">Harakatlar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for q in queryset %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{q.category.name}}</td>
+                                <td>{{q.name}}</td>
+                                <td>
+                                    <form action="{% url 'dashboard:product_update' id=q.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary" style="font-size:24px; margin-right: 15px;">UPDATE</button>
+                                    </form>
+                                    <br>
+                                    <form action="{% url 'dashboard:product_detail' id=q.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-secondary" style="font-size:24px;">DETAIL</button>
+                                    </form>
+                                </td>                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}<!-- Button trigger modal -->
+
